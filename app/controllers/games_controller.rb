@@ -22,9 +22,10 @@ class GamesController < ApplicationController
   # POST /games
   def create
     @game = Game.new(game_params)
+    @game.winner = current_user
 
     if @game.save
-      redirect_to @game, notice: 'Game was successfully created.'
+      redirect_to games_path, notice: 'Game was successfully created.'
     else
       render :new
     end
@@ -53,6 +54,6 @@ class GamesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def game_params
-      params.require(:game).permit(:played, :player_one, :player_two, :player_one_score, :player_two_score)
+      params.require(:game).permit(:winner, :played_at, :opponent, :your_score, :their_score)
     end
 end

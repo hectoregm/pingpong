@@ -12,24 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :played %><br>
-    <%= f.datetime_select :played %>
+    <%= f.label :played_at %><br>
+    <%= f.date_select :played_at %>
   </div>
   <div class="field">
-    <%= f.label :player_one %><br>
-    <%= f.number_field :player_one %>
+    <%= f.label :opponent %><br>
+    <%= f.select :opponent, options_for_select(User.all.map{|s|[s.email, s.id]}) %>
   </div>
   <div class="field">
-    <%= f.label :player_two %><br>
-    <%= f.number_field :player_two %>
+    <%= f.label :your_score %><br>
+    <%= f.number_field :your_score %>
   </div>
   <div class="field">
-    <%= f.label :player_one_score %><br>
-    <%= f.number_field :player_one_score %>
-  </div>
-  <div class="field">
-    <%= f.label :player_two_score %><br>
-    <%= f.number_field :player_two_score %>
+    <%= f.label :their_score %><br>
+    <%= f.number_field :their_score %>
   </div>
   <div class="actions">
     <%= f.submit %>

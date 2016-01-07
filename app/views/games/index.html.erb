@@ -16,16 +16,6 @@
 
   <tbody>
     <% @games.each do |game| %>
-      <tr>
-        <td><%= game.played %></td>
-        <td><%= game.player_one %></td>
-        <td><%= game.player_two %></td>
-        <td><%= game.player_one_score %></td>
-        <td><%= game.player_two_score %></td>
-        <td><%= link_to 'Show', game %></td>
-        <td><%= link_to 'Edit', edit_game_path(game) %></td>
-        <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
     <% end %>
   </tbody>
 </table>
