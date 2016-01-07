@@ -37,7 +37,7 @@ class Game < ActiveRecord::Base
     games_won + games_lost
   end
 
-  def opponent(user)
+  def other_player(user)
     winner == user ? loser : winner
   end
 

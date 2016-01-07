@@ -16,7 +16,7 @@
     <% @games.each do |game| %>
       <tr>
         <td><%= game.played_at %></td>
-        <td><%= game.opponent(current_user).email %></td>
+        <td><%= game.other_player(current_user).email %></td>
         <td><%= game.score(current_user) %></td>
         <td><%= game.result(current_user) %></td>
       </tr>
