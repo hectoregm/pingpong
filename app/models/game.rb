@@ -12,7 +12,7 @@ class Game < ActiveRecord::Base
                             greater_than_or_equal_to: 0
 
   validate :legit_win
-  
+
   belongs_to :winner, class_name: User
   belongs_to :loser, class_name: User
 
@@ -29,6 +29,25 @@ class Game < ActiveRecord::Base
   end
 
   before_validation :set_winner_and_loser
+
+  def self.games_for(user)
+    games_won = Game.where(winner: user)
+    games_lost = Game.where(loser: user)
+
+    games_won + games_lost
+  end
+
+  def opponent(user)
+    winner == user ? loser : winner
+  end
+
+  def score(user)
+    winner == user ? "#{winner_score}-#{loser_score}" : "#{loser_score}-#{winner_score}"
+  end
+
+  def result(user)
+    winner == user ? "W" : "L"
+  end
 
   private
 
@@ -52,4 +71,5 @@ class Game < ActiveRecord::Base
       self.loser_score = candidate_winner_score
     end
   end
+
 end
