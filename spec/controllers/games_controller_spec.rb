@@ -6,11 +6,11 @@ RSpec.describe GamesController, type: :controller do
   # Game. As you add validations to Game, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
-    { played: Time.now }
+    { played_at: Time.now }
   end
 
   let(:invalid_attributes) do
-    { played: nil }
+    { played_at: nil }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -50,39 +50,6 @@ RSpec.describe GamesController, type: :controller do
       game = Game.create! valid_attributes
       get :edit, {:id => game.to_param}, valid_session
       expect(assigns(:game)).to eq(game)
-    end
-  end
-
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Game" do
-        expect {
-          post :create, {:game => valid_attributes}, valid_session
-        }.to change(Game, :count).by(1)
-      end
-
-      it "assigns a newly created game as @game" do
-        post :create, {:game => valid_attributes}, valid_session
-        expect(assigns(:game)).to be_a(Game)
-        expect(assigns(:game)).to be_persisted
-      end
-
-      it "redirects to the created game" do
-        post :create, {:game => valid_attributes}, valid_session
-        expect(response).to redirect_to(Game.last)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns a newly created but unsaved game as @game" do
-        post :create, {:game => invalid_attributes}, valid_session
-        expect(assigns(:game)).to be_a_new(Game)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:game => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
     end
   end
 
