@@ -29,8 +29,31 @@ RSpec.describe Game, type: :model do
     end
 
     it 'require a score of each player' do
-      expect(Game.new(@valid_attributes.merge(winner_score: nil))).to_not be_valid
-      expect(Game.new(@valid_attributes.merge(loser_score: nil))).to_not be_valid
+      expect(Game.new(@valid_attributes.merge(winner_score: -1))).to_not be_valid
+      expect(Game.new(@valid_attributes.merge(loser_score: -1))).to_not be_valid
+    end
+  end
+
+  context 'Game Points' do
+    it 'max score is 21' do
+      expect(Game.new(@valid_attributes.merge(winner_score: 22))).to_not be_valid
+    end
+    it 'min score is 0' do
+      expect(Game.new(@valid_attributes.merge(winner_score: -1))).to_not be_valid
+    end
+
+    it 'a victory requires a two point difference' do
+      game = Game.new(@valid_attributes.merge(winner_score: 21, loser_score: 21))
+      expect(game).to_not be_valid
+
+      game = Game.new(@valid_attributes.merge(winner_score: 21, loser_score: 20))
+      expect(game).to_not be_valid
+
+      game = Game.new(@valid_attributes.merge(winner_score: 21, loser_score: 19))
+      expect(game).to be_valid
+
+      game = Game.new(@valid_attributes.merge(winner_score: 21, loser_score: 2))
+      expect(game).to be_valid
     end
   end
 end
