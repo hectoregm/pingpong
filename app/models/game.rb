@@ -4,8 +4,6 @@ class Game < ActiveRecord::Base
   validates :played_at, presence: true
   validates :winner, presence: true
   validates :loser, presence: true
-  validates :winner_score, presence: true
-  validates :loser_score, presence: true
 
   validates_numericality_of :winner_score, only_integer: true, less_than_or_equal_to: 21,
                             greater_than_or_equal_to: 0
@@ -35,12 +33,13 @@ class Game < ActiveRecord::Base
   private
 
   def legit_win
-    if winner_score - loser_score <= 1
+    if winner_score && loser_score && winner_score - loser_score <= 1
       errors.add(:winner_score, "a difference of two points is needed for a win")
     end
   end
 
   def set_winner_and_loser
+    return unless winner_score && loser_score
     candidate_winner = winner
     candidate_loser = loser
     candidate_winner_score = winner_score
